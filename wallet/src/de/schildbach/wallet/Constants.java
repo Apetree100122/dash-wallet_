@@ -108,14 +108,12 @@ public final class Constants {
                 org.dash.wallet.common.Constants.EXPLORE_GC_FILE_PATH = "explore/explore-testnet.db";
                 break;
             }
-            case "schnapps": {
-                // Schnapps Devnet
+            case "devnet": {
+                // Devnet
                 BIP44_PATH = DeterministicKeyChain.BIP44_ACCOUNT_ZERO_PATH_TESTNET;
                 NETWORK_PARAMETERS = BinTangDevNetParams.get();
                 String devNetName = ((DevNetParams)NETWORK_PARAMETERS).getDevNetName();
                 devNetName = devNetName.substring(devNetName.indexOf("-") + 1);
-                // TODO: remove this next line when Platform Supports Core 0.18
-                NETWORK_PARAMETERS.setSupportsV18(true);
                 DNS_SEED = NETWORK_PARAMETERS.getDnsSeeds();
                 IS_PROD_BUILD = false;
                 FILENAME_NETWORK_SUFFIX = "-" + devNetName;

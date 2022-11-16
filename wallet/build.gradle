@@ -57,7 +57,7 @@ dependencies {
     implementation 'org.dashj:dashj-merk:0.22-SNAPSHOT'
     implementation 'org.dashj.android:dashj-merk:0.22-SNAPSHOT'
     implementation 'io.grpc:grpc-stub:1.28.0' // CURRENT_GRPC_VERSION
-    implementation "org.dashj.android:dashj-bls-android:0.18.1"
+    implementation "org.dashj.android:dashj-bls-android:1.2.5-SNAPSHOT"
     implementation "org.dashj.android:dashj-x11-android:0.17.5"
     implementation "org.dashj.android:dashj-scrypt-android:0.17.5"
     implementation 'io.grpc:grpc-stub:1.28.0' // CURRENT_GRPC_VERSION
@@ -310,7 +310,7 @@ android {
         staging {
             res.srcDirs = ["staging/res"]
         }
-        schnapps {
+        devnet {
             res.srcDirs = ["schnapps/res"]
         }
     }
@@ -366,7 +366,6 @@ android {
             }
             buildConfigField("String", "COINBASE_CLIENT_ID", coinbaseClientId)
             buildConfigField("String", "COINBASE_CLIENT_SECRET", coinbaseClientSecret)
-
         }
         staging {
             applicationId = "org.dash.dashpay.testnet"
@@ -386,13 +385,15 @@ android {
             buildConfigField("String", "UPHOLD_CLIENT_SECRET", imgurClientSecret)
             buildConfigField("String", "LIQUID_PUBLIC_API_KEY", liquidClientId)
         }
-        schnapps {
+        devnet {
             applicationId = "org.dash.dashpay.schnapps"
             buildConfigField("String", "UPHOLD_CLIENT_ID", "\"UPHOLD_CLIENT_ID\"")
             buildConfigField("String", "UPHOLD_CLIENT_SECRET", "\"UPHOLD_CLIENT_SECRET\"")
-            buildConfigField("String", "LIQUID_PUBLIC_API_KEY", "\"LIQUID_PUBLIC_API_KEY\"")
+            buildConfigField("String", "COINBASE_CLIENT_ID", "\"\"")
+            buildConfigField("String", "COINBASE_CLIENT_SECRET", "\"\"")
         }
     }
+
     packagingOptions {
         jniLibs {
             excludes += ['lib/x86_64/freebsd/libscrypt.so', 'lib/x86_64/linux/libscrypt.so']
@@ -427,6 +428,15 @@ android {
     testOptions {
         unitTests.includeAndroidResources  = true
         unitTests.returnDefaultValues = true
+    }
+    lint {
+        abortOnError false
+        disable 'MissingTranslation'
+    }
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+        }
     }
     lint {
         abortOnError false
