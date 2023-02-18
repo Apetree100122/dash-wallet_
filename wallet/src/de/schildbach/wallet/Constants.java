@@ -29,9 +29,9 @@ import org.bitcoinj.core.Context;
 import org.bitcoinj.core.MasternodeSync;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.crypto.ChildNumber;
-import org.bitcoinj.params.BinTangDevNetParams;
 import org.bitcoinj.params.DevNetParams;
 import org.bitcoinj.params.MainNetParams;
+import org.bitcoinj.params.WhiteRussianDevNetParams;
 import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.DeterministicKeyChain;
@@ -111,7 +111,7 @@ public final class Constants {
             case "devnet": {
                 // Devnet
                 BIP44_PATH = DeterministicKeyChain.BIP44_ACCOUNT_ZERO_PATH_TESTNET;
-                NETWORK_PARAMETERS = BinTangDevNetParams.get();
+                NETWORK_PARAMETERS = WhiteRussianDevNetParams.get();
                 String devNetName = ((DevNetParams)NETWORK_PARAMETERS).getDevNetName();
                 devNetName = devNetName.substring(devNetName.indexOf("-") + 1);
                 DNS_SEED = NETWORK_PARAMETERS.getDnsSeeds();
@@ -124,7 +124,6 @@ public final class Constants {
                 SYNC_FLAGS.add(MasternodeSync.SYNC_FLAGS.SYNC_BLOCKS_AFTER_PREPROCESSING);
                 org.dash.wallet.common.Constants.FAUCET_URL = String.format("http://faucet.%s.networks.dash.org/", devNetName);
                 org.dash.wallet.common.Constants.EXPLORE_GC_FILE_PATH = "explore/explore-testnet.db";
-                SYNC_FLAGS.add(MasternodeSync.SYNC_FLAGS.SYNC_HEADERS_MN_LIST_FIRST);
                 break;
             }
             default: {
