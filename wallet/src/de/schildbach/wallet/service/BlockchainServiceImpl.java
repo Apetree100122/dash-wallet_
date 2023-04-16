@@ -938,24 +938,24 @@ public class BlockchainServiceImpl extends LifecycleService implements Blockchai
             headerStore = new SPVBlockStore(Constants.NETWORK_PARAMETERS, headerChainFile);
             headerStore.getChainHead(); // detect corruptions as early as possible
 
-            final long earliestKeyCreationTime = wallet.getEarliestKeyCreationTime();
+//            final long earliestKeyCreationTime = wallet.getEarliestKeyCreationTime();
 
-            if (!blockChainFileExists && earliestKeyCreationTime > 0) {
-                try {
-                    final Stopwatch watch = Stopwatch.createStarted();
-                    InputStream checkpointsInputStream = getAssets().open(Constants.Files.CHECKPOINTS_FILENAME);
-                    CheckpointManager.checkpoint(Constants.NETWORK_PARAMETERS, checkpointsInputStream, blockStore,
-                            earliestKeyCreationTime);
-                    //the headerStore should be set to the most recent checkpoint
-                    checkpointsInputStream = getAssets().open(Constants.Files.CHECKPOINTS_FILENAME);
-                    CheckpointManager.checkpoint(Constants.NETWORK_PARAMETERS, checkpointsInputStream, headerStore,
-                            System.currentTimeMillis() / 1000);
-                    watch.stop();
-                    log.info("checkpoints loaded from '{}', took {}", Constants.Files.CHECKPOINTS_FILENAME, watch);
-                } catch (final IOException x) {
-                    log.error("problem reading checkpoints, continuing without", x);
-                }
-            }
+//            if (!blockChainFileExists && earliestKeyCreationTime > 0) {
+//                try {
+//                    final Stopwatch watch = Stopwatch.createStarted();
+//                    InputStream checkpointsInputStream = getAssets().open(Constants.Files.CHECKPOINTS_FILENAME);
+//                    CheckpointManager.checkpoint(Constants.NETWORK_PARAMETERS, checkpointsInputStream, blockStore,
+//                            earliestKeyCreationTime);
+//                    //the headerStore should be set to the most recent checkpoint
+//                    checkpointsInputStream = getAssets().open(Constants.Files.CHECKPOINTS_FILENAME);
+//                    CheckpointManager.checkpoint(Constants.NETWORK_PARAMETERS, checkpointsInputStream, headerStore,
+//                            System.currentTimeMillis() / 1000);
+//                    watch.stop();
+//                    log.info("checkpoints loaded from '{}', took {}", Constants.Files.CHECKPOINTS_FILENAME, watch);
+//                } catch (final IOException x) {
+//                    log.error("problem reading checkpoints, continuing without", x);
+//                }
+//            }
         } catch (final BlockStoreException x) {
             blockChainFile.delete();
             headerChainFile.delete();

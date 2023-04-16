@@ -31,7 +31,7 @@ import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.params.DevNetParams;
 import org.bitcoinj.params.MainNetParams;
-import org.bitcoinj.params.WhiteRussianDevNetParams;
+import org.bitcoinj.params.TwoIslandsDevNetParams;
 import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.DeterministicKeyChain;
@@ -87,7 +87,6 @@ public final class Constants {
                 SYNC_FLAGS.add(MasternodeSync.SYNC_FLAGS.SYNC_HEADERS_MN_LIST_FIRST);
                 org.dash.wallet.common.Constants.FAUCET_URL = "";
                 org.dash.wallet.common.Constants.EXPLORE_GC_FILE_PATH = "explore/explore.db";
-                SYNC_FLAGS.add(MasternodeSync.SYNC_FLAGS.SYNC_HEADERS_MN_LIST_FIRST);
                 break;
             }
             case "staging":
@@ -111,7 +110,7 @@ public final class Constants {
             case "devnet": {
                 // Devnet
                 BIP44_PATH = DeterministicKeyChain.BIP44_ACCOUNT_ZERO_PATH_TESTNET;
-                NETWORK_PARAMETERS = WhiteRussianDevNetParams.get();
+                NETWORK_PARAMETERS = TwoIslandsDevNetParams.get();
                 String devNetName = ((DevNetParams)NETWORK_PARAMETERS).getDevNetName();
                 devNetName = devNetName.substring(devNetName.indexOf("-") + 1);
                 DNS_SEED = NETWORK_PARAMETERS.getDnsSeeds();
