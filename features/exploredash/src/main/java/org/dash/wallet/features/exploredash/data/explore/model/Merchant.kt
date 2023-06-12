@@ -47,8 +47,10 @@ data class Merchant(
     var updateDate: String? = "",
     var paymentMethod: String? = "",
     var merchantId: Long? = null,
-    @Ignore var minCardPurchase: Double? = null,
-    @Ignore var maxCardPurchase: Double? = null,
-    @Ignore var savingsPercentage: Double? = null,
-    @Ignore var physicalAmount: Int = 0
+    var minCardPurchase: Double? = null,
+    var maxCardPurchase: Double? = null,
+    var savingsPercentage: Double? = null,
+
+    @Ignore
+    var physicalAmount: Int = 0
 ) : SearchResult()

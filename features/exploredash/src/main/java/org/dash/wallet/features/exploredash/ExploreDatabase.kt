@@ -27,6 +27,7 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.dash.wallet.common.data.RoomConverters
+import org.dash.wallet.features.exploredash.ExploreDBMigrations.Companion.migration1To2
 import org.dash.wallet.features.exploredash.data.explore.AtmDao
 import org.dash.wallet.features.exploredash.data.explore.MerchantDao
 import org.dash.wallet.features.exploredash.data.explore.model.Atm
@@ -47,7 +48,7 @@ import kotlin.coroutines.resumeWithException
         Atm::class,
         AtmFTS::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = true
 )
 @TypeConverters(RoomConverters::class)
@@ -79,7 +80,7 @@ abstract class ExploreDatabase : RoomDatabase() {
                 ?: ExploreConfig.EXPLORE_DB_PREFIX
             val dbBuilder = Room.databaseBuilder(context, ExploreDatabase::class.java, exploreDatabaseName)
             log.info("Open database $exploreDatabaseName")
-            return dbBuilder.build()
+            return dbBuilder.addMigrations(migration1To2).build()
         }
 
         private suspend fun update(
@@ -104,7 +105,11 @@ abstract class ExploreDatabase : RoomDatabase() {
                 config.set(ExploreConfig.EXPLORE_DATABASE_NAME, exploreDatabaseName)
             }
 
-            val dbBuilder = Room.databaseBuilder(context, ExploreDatabase::class.java, exploreDatabaseName)
+            val dbBuilder = Room.databaseBuilder(
+                context,
+                ExploreDatabase::class.java,
+                exploreDatabaseName
+            ).addMigrations(migration1To2)
 
             return preloadAndOpen(dbBuilder, repository, dbUpdateFile)
         }
