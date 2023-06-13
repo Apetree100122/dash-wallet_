@@ -124,6 +124,16 @@ class MerchantViewHolder(val binding: MerchantRowBinding) : ExploreViewHolder(bi
             )
         }
 
+        if ((merchant?.savingsPercentage ?: 0.0) > 0.0) {
+            binding.discount.isVisible = true
+            binding.discount.text = resources.getString(
+                R.string.save_percentage,
+                String.format("%.1f", merchant?.savingsPercentage).removeSuffix(".0")
+            )
+        } else {
+            binding.discount.isVisible = false
+        }
+
         when (merchant?.paymentMethod?.trim()?.lowercase()) {
             PaymentMethod.DASH -> binding.methodImg.setImageResource(R.drawable.ic_dash_pay)
             PaymentMethod.GIFT_CARD -> binding.methodImg.setImageResource(R.drawable.ic_gift_card_rounded)

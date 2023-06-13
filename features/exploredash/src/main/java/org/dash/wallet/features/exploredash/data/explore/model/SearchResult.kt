@@ -44,6 +44,9 @@ open class SearchResult(
     var type: String? = "",
     @Ignore var distance: Double = Double.NaN
 ) {
+    val hasCoordinates: Boolean
+        get() = latitude != null && longitude != null
+
     fun getDisplayAddress(separator: String = "\n"): String {
         val addressBuilder = StringBuilder()
         addressBuilder.append(address1)

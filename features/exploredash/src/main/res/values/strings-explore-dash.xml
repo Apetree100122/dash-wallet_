@@ -46,6 +46,7 @@
     <string name="explore_no_atms">No ATMs</string>
     <string name="distance_miles">%s miles</string>
     <string name="distance_kilometers">%s kilometers</string>
+    <string name="save_percentage">Save %s%%</string>
 
     <plurals name="explore_merchant_amount">
         <item quantity="one">%d merchant</item>

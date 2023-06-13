@@ -45,7 +45,7 @@
         app:layout_constraintStart_toEndOf="@id/logo_img"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/subtitle"
-        app:layout_constraintEnd_toStartOf="@id/method_img"
+        app:layout_constraintEnd_toStartOf="@id/discount"
         tools:text="Bark Box" />
 
     <TextView
@@ -58,8 +58,19 @@
         app:layout_constraintStart_toEndOf="@id/logo_img"
         app:layout_constraintTop_toBottomOf="@id/title"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/method_img"
+        app:layout_constraintEnd_toStartOf="@id/discount"
         tools:text="10 miles" />
+
+    <TextView
+        android:id="@+id/discount"
+        style="@style/Overline.Secondary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toStartOf="@id/method_img"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Save 3%" />
 
     <ImageView
         android:id="@+id/method_img"

@@ -248,11 +248,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
             android:id="@+id/pay_btn"
             style="@style/Button.Primary.Large.Blue"
+            android:layout_width="match_parent"
             app:layout_goneMarginBottom="28dp"
             android:layout_marginTop="28dp"
             android:orientation="horizontal"
@@ -267,11 +266,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_dash_inverted"
-                app:tint="@color/dash_white"/>
+                app:tint="@color/dash_white" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/pay_btn_txt"
-                 style="@style/Headline5.SemiBold.White"
+                style="@style/Headline5.SemiBold.White"
                 android:textSize="14sp"
                 android:paddingStart="14dp"
                 android:text="@string/explore_buy_gift_card"
@@ -280,5 +279,24 @@
                 android:layout_height="wrap_content" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <FrameLayout
+            android:id="@+id/discount_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="-10dp"
+            android:background="@drawable/ic_discount_label"
+            app:layout_constraintTop_toTopOf="@id/pay_btn"
+            app:layout_constraintEnd_toEndOf="@id/pay_btn">
+
+            <TextView
+                android:id="@+id/discount_label"
+                style="@style/Overline.Medium.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_gravity="center"
+                tools:text="Save 3.5%" />
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </merge>

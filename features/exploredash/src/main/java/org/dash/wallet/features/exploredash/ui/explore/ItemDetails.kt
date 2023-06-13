@@ -168,8 +168,7 @@ class ItemDetails(context: Context, attrs: AttributeSet) : LinearLayout(context,
                 onOpenWebsiteButtonClicked?.invoke()
             }
 
-            directionBtn.isVisible =
-                !isOnline && ((item.latitude != null && item.longitude != null) || !item.googleMaps.isNullOrBlank())
+            directionBtn.isVisible = !isOnline && (item.hasCoordinates || !item.googleMaps.isNullOrBlank())
             directionBtn.setOnClickListener {
                 openMaps(item)
                 onNavigationButtonClicked?.invoke()
@@ -198,12 +197,11 @@ class ItemDetails(context: Context, attrs: AttributeSet) : LinearLayout(context,
             showAllBtn.isVisible = !isOnline && isGrouped && merchant.physicalAmount > 1
 
             val isDash = merchant.paymentMethod?.trim()?.lowercase() == PaymentMethod.DASH
-            val drawable =
-                ResourcesCompat.getDrawable(
-                    resources,
-                    if (isDash) R.drawable.ic_dash_inverted else R.drawable.ic_gift_card_inverted,
-                    null
-                )
+            val drawable = ResourcesCompat.getDrawable(
+                resources,
+                if (isDash) R.drawable.ic_dash_inverted else R.drawable.ic_gift_card_inverted,
+                null
+            )
             payBtnIcon.setImageDrawable(drawable)
 
             if (isDash) {
@@ -211,6 +209,7 @@ class ItemDetails(context: Context, attrs: AttributeSet) : LinearLayout(context,
                 payBtnTxt.text = context.getText(R.string.explore_pay_with_dash)
                 payBtn.background = resources.getRoundedRippleBackground(R.style.PrimaryButtonTheme_Large_Blue)
                 payBtn.setOnClickListener { onSendDashClicked?.invoke(true) }
+                binding.discountContainer.isVisible = false
             } else {
                 // DashDirect allows payments via API, other sources require a deeplink
                 payBtn.isVisible = merchant.source?.lowercase() == ServiceName.DashDirect ||
@@ -218,6 +217,16 @@ class ItemDetails(context: Context, attrs: AttributeSet) : LinearLayout(context,
                 payBtnTxt.text = context.getText(R.string.explore_buy_gift_card)
                 payBtn.background = resources.getRoundedRippleBackground(R.style.PrimaryButtonTheme_Large_Orange)
                 payBtn.setOnClickListener { onBuyGiftCardButtonClicked?.invoke() }
+
+                if ((merchant.savingsPercentage ?: 0.0) > 0.0) {
+                    binding.discountContainer.isVisible = true
+                    binding.discountLabel.text = resources.getString(
+                        R.string.save_percentage,
+                        String.format("%.1f", merchant.savingsPercentage).removeSuffix(".0")
+                    )
+                } else {
+                    binding.discountContainer.isVisible = false
+                }
             }
 
             showAllBtn.setOnClickListener { onShowAllLocationsClicked?.invoke() }
